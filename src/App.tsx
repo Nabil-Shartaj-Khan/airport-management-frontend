@@ -1,10 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Login, Welcome } from './login/login';
+import { AdminLogin, Login, Welcome } from './login/login';
 import background from './r6back.png'
 import { Route, Routes } from 'react-router-dom';
 import { Home } from './home/home';
+import { Signup } from './signup/signup';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/admin_login' element={<AdminLogin/>}/>
+        <Route path='/Signup' element={<Signup/>}/>
       </Routes>
     </div>
   );

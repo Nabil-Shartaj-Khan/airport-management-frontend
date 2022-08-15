@@ -8,8 +8,11 @@ export function Home() {
         <h1>Home Page</h1>
         <p>Home page stuff</p>
         <Welcome name={'X'} />
-        <button style={{fontSize:'200px'}} onClick={() => {
+        <button style={{fontSize:'20px'}} onClick={() => {
             navigate("/login");
         }}>Login</button>
+        <br></br> <button style={{fontSize:'20px'}} onClick={() => {
+            navigate("/admin_login");
+        }}> Admin Login</button>
     </div>;
 }
