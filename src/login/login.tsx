@@ -8,7 +8,7 @@ export function Welcome(props: { name: string | number | boolean | ReactElement<
 export function Login() {
     let navigate = useNavigate();
     return <div>
-        <h1>Login Page</h1>
+        <h1><b>Welcome to the login page</b></h1>
         <form onSubmit={handleSubmit}>
             <label>Email: <input name={"email"} type={"email"}></input></label>
             <br></br>

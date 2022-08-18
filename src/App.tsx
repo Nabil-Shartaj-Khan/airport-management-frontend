@@ -13,7 +13,7 @@ function App() {
       <header className="App-header" >
         <img src={logo} className="App-logo" alt="logo" />
         <p style={{color: 'white'}}>
-          Kemon asen <b>jonogon</b>
+         <b>Your online flight assistant</b>
         </p>
         {/* <Login/> */}
       </header>
