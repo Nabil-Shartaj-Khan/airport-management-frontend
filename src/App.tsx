@@ -12,7 +12,7 @@ function App() {
     <div className="App" style={{height:"100vh", backgroundImage: `url(${background})`, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat'}}>
       <header className="App-header" >
         <p style={{color: 'white'}}>
-          Kemon asen <b>jonogon</b>
+         <b>Your online flight assistant</b>
         </p>
         {/* <Login/> */}
       </header>

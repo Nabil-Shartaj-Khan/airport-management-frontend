@@ -6,8 +6,8 @@ import { DropTable } from "../userview/flightlist";
 export function Home() {
     let navigate = useNavigate();
     return <div>
-        <h1>Home Page</h1>
-        <p>Home page stuff</p>
+        <h1><b>Welcome to the Airport Management System</b></h1>
+        <p>Choose and we'll show the rest</p>
         <Welcome name={'X'} />
         <button style={{fontSize:'20px'}} onClick={() => {
             navigate("/login");
