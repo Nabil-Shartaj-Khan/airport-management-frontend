@@ -1,3 +1,6 @@
+import { useState } from "react";
+import Select from "react-select/dist/declarations/src/Select";
+
 export function Table(fromLoc: string, toLoc: string, tableData: {
     airline_name: string,
     flight_type: string,
@@ -35,5 +38,24 @@ export function Table(fromLoc: string, toLoc: string, tableData: {
             </tbody>
         </table>
     )
-}
 
+} 
+//first dropdown options
+const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
+
+
+export function DropTable(){
+    const fromSelect = useState(null);
+    return <div> 
+        <h1> Where do you wanna go? </h1>
+        <Select
+        defaultValue={fromSelect[0]}
+        onChange={fromSelect[1]}
+        options={options}
+      /> 
+      </div>
+}
