@@ -6,7 +6,8 @@ export const dummydata=[
         toLoc: "Chittagong",
         arrival_date: null,
         departure_date: null,
-        duration: "4H"
+        duration: "4H",
+        availability: true
       },
       {
         airline_name: "Spiderman",
@@ -15,7 +16,8 @@ export const dummydata=[
         toLoc: "Dhaka",
         arrival_date: null,
         departure_date: null,
-        duration: "3H"
+        duration: "3H",
+        availability: false
       },
       {
         airline_name: "God of War",
@@ -24,6 +26,7 @@ export const dummydata=[
         toLoc: "Dhaka",
         arrival_date: null,
         departure_date: null,
-        duration: "2H"
+        duration: "2H",
+        availability: true
       }
 ]

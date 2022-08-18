@@ -13,6 +13,7 @@ export function Table(props: {
     arrival_date: Date | null;
     departure_date: Date | null;
     duration: string;
+    availability: boolean;
   }[];
 }) {
   return (
@@ -24,6 +25,7 @@ export function Table(props: {
           <th>Arrival Date</th>
           <th>Departure Date</th>
           <th>Duration</th>
+          <th>Availability</th>
         </tr>
       </thead>
       <tbody>
@@ -46,6 +48,7 @@ export function Table(props: {
                 <td>{data.arrival_date?.toDateString()}</td>
                 <td>{data.departure_date?.toDateString()}</td>
                 <td>{data.duration}</td>
+                <td>{data.availability?"Yes": "No"}</td> 
               </tr>
             );
           })}

@@ -7,8 +7,8 @@ export function Home() {
     let navigate = useNavigate();
     return <div>
         <h1><b>Welcome to the Airport Management System</b></h1>
-        <p>Choose and we'll show the rest</p>
-        <Welcome name={'X'} />
+        <h2><b>Choose and we'll show the rest</b></h2>
+        <Welcome name={'User,Please Login with the credentials'} />
         <button style={{fontSize:'20px'}} onClick={() => {
             navigate("/login");
         }}>Login</button>
@@ -17,6 +17,5 @@ export function Home() {
             navigate("/admin_login");
         }}> Admin Login</button>
         <br></br>
-        <DropTable/>
     </div>;
 }

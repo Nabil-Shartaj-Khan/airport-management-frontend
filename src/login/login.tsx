@@ -10,9 +10,9 @@ export function Login() {
     return <div>
         <h1><b>Welcome to the login page</b></h1>
         <form onSubmit={handleSubmit}>
-            <label>Email: <input name={"email"} type={"email"}></input></label>
+            <label><b>Email:</b> <input name={"email"} type={"email"}></input></label>
             <br></br>
-            <label>Password: <input name={"password"} type={"password"}></input></label>
+            <label><b>Password:</b> <input name={"password"} type={"password"}></input></label>
             <br></br>
             <input type={"submit"} value={"Submit"}></input>
             <br></br>
