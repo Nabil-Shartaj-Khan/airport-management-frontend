@@ -8,6 +8,7 @@ import { Home } from './home/home';
 import { Signup } from './signup/signup';
 import { AddEmployee, AddFlight, AddPilot } from './adminedit/adminedit';
 import { DropTable } from './userview/flightlist';
+import { createState } from '@hookstate/core';
 
 function App() {
   return (
@@ -33,3 +34,4 @@ function App() {
 }
 
 export default App;
+export const auth=createState("");
