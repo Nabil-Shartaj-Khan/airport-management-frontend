@@ -48,7 +48,7 @@ export function Table(props: {
                 <td>{data.arrival_date?.toDateString()}</td>
                 <td>{data.departure_date?.toDateString()}</td>
                 <td>{data.duration}</td>
-                <td>{data.availability?"Yes": "No"}</td> 
+                
               </tr>
             );
           })}

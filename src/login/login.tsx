@@ -1,5 +1,8 @@
+import { useState } from "@hookstate/core";
+import axios from "axios";
 import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../App";
 
 export function Welcome(props: { name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; }) {
     return <h1>Hello, {props.name}</h1>;
@@ -23,6 +26,37 @@ export function Login() {
     </div>;
 }
 export function AdminLogin() {
+    let navigate = useNavigate();
+
+    const token= useState(auth);
+
+    async function login(id: string) {
+        const response = await axios.post("http://localhost:5000/auth/login", {
+          username: "Admin",
+          password: "4321",
+        });
+        console.log(response.data);
+        console.log(response.status);
+        if (response.status >= 200 || response.status<=300) {
+          const data = response.data;
+          console.log(data["access_token"]);
+          
+          token.set(data["access_token"]);
+          navigate("/dashboard");
+        }
+      }
+    
+      function handleAdminLogin(e: FormEvent) {
+        const target = e.target as typeof e.target & {
+          Id: { value: number };
+        };
+        const Id = target.Id.value; // typechecks!
+        console.log(`${Id}`);
+        login(Id.toString());
+        e.preventDefault();
+      }
+
+
     return <div> <h1> Admin Login </h1> 
      <form onSubmit={handleAdminLogin}> <label style={{fontSize:"25px"}}> Unique ID:  <input style={{fontSize:"25px"}} name={"Id"} type={"number"}></input></label><br></br><input type={"submit"} value={"Login"}></input></form></div>;
 }
