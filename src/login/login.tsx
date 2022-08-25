@@ -42,6 +42,12 @@ export function AdminLogin() {
           console.log(data["access_token"]);
           
           token.set(data["access_token"]);
+
+          /* const userResponse=await axios.get("http://localhost:5000/profile", {headers:{
+            'Authorization': `Bearer ${data["access_token"]}` 
+          }});
+          console.log(userResponse.data) */
+
           navigate("/dashboard");
         }
       }

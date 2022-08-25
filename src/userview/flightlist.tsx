@@ -1,54 +1,43 @@
 import { useState } from "@hookstate/core";
+import axios from "axios";
+import { useEffect } from "react";
 import Select from "react-select/dist/declarations/src/Select";
 import { dummydata } from "../dummydata";
 
 export function Table(props: {
-  fromLoc: string;
-  toLoc: string;
-  tableData: {
-    airline_name: string;
-    flight_type: string;
-    fromLoc: string;
-    toLoc: string;
-    arrival_date: Date | null;
-    departure_date: Date | null;
-    duration: string;
-    availability: boolean;
-  }[];
+  tableData: flight[];
 }) {
   return (
     <table className="table">
       <thead>
         <tr>
-          <th>Airline Name</th>
+          <th>Flight Code</th>
           <th>Type</th>
           <th>Arrival Date</th>
           <th>Departure Date</th>
           <th>Duration</th>
-          <th>Availability</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Airline Code</th>
         </tr>
       </thead>
       <tbody>
         {props.tableData
-          .filter(
-            (value) =>
-              {
-                console.log(`vfl ${value.fromLoc} pfl ${props.fromLoc}`);
-                console.log(`vtl ${value.toLoc} ptl ${props.toLoc}`);
-                console.log(`test ${value.fromLoc == props.fromLoc && value.toLoc == props.toLoc}`);
-                
-                return value.fromLoc == props.fromLoc && value.toLoc == props.toLoc
-              }
-          )
           .map((data, index) => {
             return (
               <tr key={index}>
-                <td>{data.airline_name}</td>
-                <td>{data.flight_type}</td>
-                <td>{data.arrival_date?.toDateString()}</td>
-                <td>{data.departure_date?.toDateString()}</td>
+                <td>{data.flightCode}</td>
+                <td>{data.flightType}</td>
+                <td>{new Date(data.arrival).toLocaleString()}</td>
+                <td>{new Date(data.departure).toLocaleString()}</td>
+                {/* <td>{data.arrival?.toDateString()}</td> */}
+                {/* <td>{data.departure?.toDateString()}</td> */}
                 <td>{data.duration}</td>
-                
+                <td>{data.fromLoc}</td>
+                <td>{data.toLoc}</td>
+                <td>{data.airlineId}</td>
+
+
               </tr>
             );
           })}
@@ -57,11 +46,39 @@ export function Table(props: {
   );
 }
 //first dropdown options
-const options = ["Dhaka", "Chittagong", "Khulna"];
+const options = ["All", "Dhaka", "Chittagong", "Sylhet", "Cox\'sbazar", "Rajshahi"];
 
 export function DropTable() {
   const value = useState(options[0]);
   const value2 = useState(options[0]);
+
+  const data = useState<flight[]>(() => axios.get(`http://localhost:5000/view/flights?from=${value.get()}&to=${value2.get()}`).then((flightResponse) => {
+    if (flightResponse.status >= 200 || flightResponse.status <= 300) {
+      const flights = flightResponse.data as flight[];
+      console.log(flights)
+      return flights;
+    } else return [];
+  }));
+
+  /* useEffect(() => {
+    axios.get(`http://localhost:5000/view/flights?from=${value.get()}&to=${value2.get()}`).then((flightResponse) => {
+      if (flightResponse.status >= 200 || flightResponse.status <= 300) {
+        const flights = flightResponse.data as flight[];
+        console.log(flights)
+        data.set(flights)
+      }
+    });
+  }, []);
+ */
+  useEffect(() => {
+    axios.get(`http://localhost:5000/view/flights?from=${value.get()}&to=${value2.get()}`).then((flightResponse) => {
+      if (flightResponse.status >= 200 || flightResponse.status <= 300) {
+        const flights = flightResponse.data as flight[];
+        data.set(flights)
+      }
+    });
+  }, [value, value2])
+
   return (
     <div>
       <select
@@ -89,7 +106,21 @@ export function DropTable() {
         ))}
       </select>
       <br></br>
-      <Table toLoc={value.get()} fromLoc={value2.get()} tableData={dummydata} />
+      {data.promised ? <></> : <Table tableData={data.get() as flight[]} />}
+
     </div>
   );
 }
+
+
+export interface flight {
+  flightCode: string;
+  flightType: string;
+  arrival: string;
+  departure: string;
+  duration: string;
+  fromLoc: string;
+  toLoc: string;
+  airlineId: string;
+}
+
