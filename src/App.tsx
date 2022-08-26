@@ -8,7 +8,7 @@ import { Home } from './home/home';
 import { Signup } from './signup/signup';
 import { AddEmployee, AddFlight, AddPilot } from './adminedit/adminedit';
 import { DropTable } from './userview/flightlist';
-import { createState } from '@hookstate/core';
+import { hookstate } from '@hookstate/core';
 
 function App() {
   return (
@@ -25,7 +25,10 @@ function App() {
         <Route path='/admin_login' element={<AdminLogin />} />
         <Route path='/Signup' element={<Signup />} />
         <Route path='/addEmployee' element={<AddEmployee />} />
-        <Route path='/addflight' element={<AddFlight />} />
+        {/* { auth.get()!="" && 
+          <Route path="/addflight" element={AddFlight} />
+        } */}
+        <Route path='/addflight' element={auth.get()==""|| auth.get()==null|| auth.get()=="null"? <AdminLogin/> : <AddFlight />} />
         <Route path='/addpilot' element={<AddPilot />} />
         <Route path='/userview' element={<DropTable />} />
       </Routes>
@@ -34,4 +37,4 @@ function App() {
 }
 
 export default App;
-export const auth=createState("");
+export const auth=hookstate(window.localStorage.getItem("token"));

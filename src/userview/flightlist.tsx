@@ -1,11 +1,11 @@
-import { useState } from "@hookstate/core";
+import { useHookstate } from "@hookstate/core";
 import axios from "axios";
 import { useEffect } from "react";
 import Select from "react-select/dist/declarations/src/Select";
 import { dummydata } from "../dummydata";
 
 export function Table(props: {
-  tableData: flight[];
+  tableData: Flight[];
 }) {
   return (
     <table className="table">
@@ -28,8 +28,8 @@ export function Table(props: {
               <tr key={index}>
                 <td>{data.flightCode}</td>
                 <td>{data.flightType}</td>
-                <td>{new Date(data.arrival).toLocaleString()}</td>
-                <td>{new Date(data.departure).toLocaleString()}</td>
+                <td>{data.arrival.toLocaleString()}</td>
+                <td>{data.departure.toLocaleString()}</td>
                 {/* <td>{data.arrival?.toDateString()}</td> */}
                 {/* <td>{data.departure?.toDateString()}</td> */}
                 <td>{data.duration}</td>
@@ -49,12 +49,12 @@ export function Table(props: {
 const options = ["All", "Dhaka", "Chittagong", "Sylhet", "Cox\'sbazar", "Rajshahi"];
 
 export function DropTable() {
-  const value = useState(options[0]);
-  const value2 = useState(options[0]);
+  const value = useHookstate(options[0]);
+  const value2 = useHookstate(options[0]);
 
-  const data = useState<flight[]>(() => axios.get(`http://localhost:5000/view/flights?from=${value.get()}&to=${value2.get()}`).then((flightResponse) => {
+  const data = useHookstate<Flight[]>(() => axios.get(`http://localhost:5000/view/flights?from=${value.get()}&to=${value2.get()}`).then((flightResponse) => {
     if (flightResponse.status >= 200 || flightResponse.status <= 300) {
-      const flights = flightResponse.data as flight[];
+      const flights = flightResponse.data as Flight[];
       console.log(flights)
       return flights;
     } else return [];
@@ -73,7 +73,7 @@ export function DropTable() {
   useEffect(() => {
     axios.get(`http://localhost:5000/view/flights?from=${value.get()}&to=${value2.get()}`).then((flightResponse) => {
       if (flightResponse.status >= 200 || flightResponse.status <= 300) {
-        const flights = flightResponse.data as flight[];
+        const flights = flightResponse.data as Flight[];
         data.set(flights)
       }
     });
@@ -106,18 +106,18 @@ export function DropTable() {
         ))}
       </select>
       <br></br>
-      {data.promised ? <></> : <Table tableData={data.get() as flight[]} />}
+      {data.promised ? <></> : <Table tableData={data.get() as Flight[]} />}
 
     </div>
   );
 }
 
 
-export interface flight {
+export interface Flight {
   flightCode: string;
   flightType: string;
-  arrival: string;
-  departure: string;
+  arrival: Date;
+  departure: Date;
   duration: string;
   fromLoc: string;
   toLoc: string;
