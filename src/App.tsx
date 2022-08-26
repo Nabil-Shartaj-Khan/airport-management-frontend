@@ -6,7 +6,7 @@ import background from './Airplane.jpg'
 import { Route, Routes } from 'react-router-dom';
 import { Home } from './home/home';
 import { Signup } from './signup/signup';
-import { AddEmployee, AddFlight, AddPilot } from './adminedit/adminedit';
+import { AddAirlines, AddEmployee, AddFlight, AddPilot } from './adminedit/adminedit';
 import { DropTable } from './userview/flightlist';
 import { hookstate } from '@hookstate/core';
 
@@ -31,6 +31,7 @@ function App() {
         <Route path='/addflight' element={auth.get()==""|| auth.get()==null|| auth.get()=="null"? <AdminLogin/> : <AddFlight />} />
         <Route path='/addpilot' element={<AddPilot />} />
         <Route path='/userview' element={<DropTable />} />
+        <Route path='/addairline' element={auth.get()==""|| auth.get()==null|| auth.get()=="null"? <AdminLogin/> : <AddAirlines />} />
       </Routes>
     </div>
   );

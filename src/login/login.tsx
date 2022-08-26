@@ -62,7 +62,7 @@ export function AdminLogin() {
       }});
       console.log(userResponse.data) */
 
-      navigate("/dashboard");
+      navigate("/addflight");
     }
   }
 

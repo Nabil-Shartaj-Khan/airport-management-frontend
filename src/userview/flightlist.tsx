@@ -123,4 +123,9 @@ export interface Flight {
   toLoc: string;
   airlineId: string;
 }
+export interface Airline {
+  airlineId: string;
+  airlineName: string;
+  
+}
 

@@ -2,7 +2,7 @@ import { useHookstate } from "@hookstate/core";
 import axios from "axios";
 import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, FormEvent } from "react";
 import { auth } from "../App";
-import { Flight } from "../userview/flightlist";
+import { Airline, Flight } from "../userview/flightlist";
 
 export function AddEmployee() {
     return <div>
@@ -101,3 +101,46 @@ export function AddPilot() {
     </div>;
 }
 
+export function AddAirlines(){
+    const updated = useHookstate(false);
+    const token = useHookstate(auth);
+    async function addOrUpdateAirline(airline: Airline) {
+        const response = await axios.post("http://localhost:5000/admindata/airline", airline, {headers:{
+            'Authorization': `Bearer ${token.get()}` 
+          }});
+        console.log(response.data);
+        console.log(response.status);
+        if (response.status >= 200 || response.status <= 300) {
+            updated.set(true)
+        }
+    }
+    function handleAddAirline(e: FormEvent) {
+        const target = e.target as typeof e.target & {
+            airline_id: { value: string };
+            airline_name: { value: string };
+            
+        };
+        const airline: Airline = {
+            airlineName: target.airline_name.value,
+            airlineId: target.airline_id.value,
+            
+        }
+        // typechecks!
+        console.log(`${airline}`);
+        addOrUpdateAirline(airline);
+        e.preventDefault();
+    }
+
+    return <div>
+        <h1><b>Add Airlines<u></u></b></h1>
+        <h2>Add informations regarding the Airlines</h2>
+        <form>
+            <label>Add Airline Id: <input name={"airline_id"} type={"text"}></input></label>
+            <label>Add Airline name: <input name={"airline_name"} type={"text"}></input></label>
+            <br></br>
+            <input type={"submit"} value={"Submit"}></input>
+            <br></br>
+        </form>
+    </div>;
+    
+}

@@ -8,10 +8,10 @@ export function Home() {
     return <div>
         <h1><b>Welcome to the Airport Management System</b></h1>
         <h2><b>Choose and we'll show the rest</b></h2>
-        <Welcome name={'User,Please Login with the credentials'} />
+        <Welcome name={'Please click to see the available flights'} />
         <button style={{fontSize:'20px'}} onClick={() => {
-            navigate("/login");
-        }}>Login</button>
+            navigate("/userview");
+        }}>Flights</button>
         <br></br>
         <button style={{fontSize:'20px'}} onClick={() => {
             navigate("/admin_login");
